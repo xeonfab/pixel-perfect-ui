@@ -1,7 +1,8 @@
-import { useState, useTransition } from "react";
-import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, Apple, Moon, SmilePlus } from "lucide-react";
 import Header from "@/components/Header";
 import TableOfContents from "@/components/TableOfContents";
+import DesktopCategoryNav from "@/components/DesktopCategoryNav";
 import ArticleSection from "@/components/ArticleSection";
 import MobileCategoryNav from "@/components/MobileCategoryNav";
 import MobileArticleCard from "@/components/MobileArticleCard";
