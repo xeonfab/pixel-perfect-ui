@@ -1,7 +1,8 @@
-import { useState, useTransition } from "react";
-import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, Apple, Moon, SmilePlus } from "lucide-react";
 import Header from "@/components/Header";
 import TableOfContents from "@/components/TableOfContents";
+import DesktopCategoryNav from "@/components/DesktopCategoryNav";
 import ArticleSection from "@/components/ArticleSection";
 import MobileCategoryNav from "@/components/MobileCategoryNav";
 import MobileArticleCard from "@/components/MobileArticleCard";
@@ -17,6 +18,27 @@ import articleHomeopathie from "@/assets/article-homeopathie.jpg";
 import articleBurnout from "@/assets/article-burnout.jpg";
 import articleGrossesse from "@/assets/article-grossesse.jpg";
 import articleAnxiete from "@/assets/article-anxiete.jpg";
+
+const desktopCategories = [
+  {
+    id: "alimentation",
+    label: "Alimentation et Forme",
+    icon: <Apple className="h-4 w-4" />,
+    subcategories: ["Toutes", "Recettes", "Comment maigrir", "Poids et santé", "Régimes"],
+  },
+  {
+    id: "sommeil",
+    label: "Le Sommeil",
+    icon: <Moon className="h-4 w-4" />,
+    subcategories: ["Toutes", "Troubles du sommeil", "Insomnie", "Remèdes"],
+  },
+  {
+    id: "stress",
+    label: "Gestion du Stress",
+    icon: <SmilePlus className="h-4 w-4" />,
+    subcategories: ["Toutes", "Gérer son stress", "Comprendre le stress", "Bien-être"],
+  },
+];
 
 const mobileCategories = [
   {
@@ -173,7 +195,13 @@ const Index = () => {
               Sommaire des dossiers
             </h1>
 
-            <TableOfContents />
+            <DesktopCategoryNav
+              categories={desktopCategories}
+              activeCategory={activeCategory}
+              activeSubcategory={activeSubcategory}
+              onCategoryChange={handleCategoryChange}
+              onSubcategoryChange={handleSubcategoryChange}
+            />
 
             <div className="mt-14 mb-10">
               <h2 className="text-2xl font-bold text-foreground">Le Mag'</h2>
@@ -182,11 +210,19 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="space-y-14">
-              {sections.map((section) => (
-                <ArticleSection key={section.id} {...section} />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <ArticleSkeletonCard />
+                <ArticleSkeletonCard />
+                <ArticleSkeletonCard />
+              </div>
+            ) : (
+              <div className="space-y-14 animate-fade-in">
+                {activeSection && (
+                  <ArticleSection key={activeCategory} {...activeSection} />
+                )}
+              </div>
+            )}
           </>
         )}
 
