@@ -185,9 +185,7 @@ const Index = () => {
         {/* Desktop layout */}
         {!isMobile && (
           <>
-            <h1 className="text-3xl font-bold text-foreground mb-8">
-              Sommaire des dossiers
-            </h1>
+
 
             <DrilldownNav
               roots={categoryTree}
