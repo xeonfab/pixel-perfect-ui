@@ -19,6 +19,27 @@ import articleBurnout from "@/assets/article-burnout.jpg";
 import articleGrossesse from "@/assets/article-grossesse.jpg";
 import articleAnxiete from "@/assets/article-anxiete.jpg";
 
+const desktopCategories = [
+  {
+    id: "alimentation",
+    label: "Alimentation et Forme",
+    icon: <Apple className="h-4 w-4" />,
+    subcategories: ["Toutes", "Recettes", "Comment maigrir", "Poids et santé", "Régimes"],
+  },
+  {
+    id: "sommeil",
+    label: "Le Sommeil",
+    icon: <Moon className="h-4 w-4" />,
+    subcategories: ["Toutes", "Troubles du sommeil", "Insomnie", "Remèdes"],
+  },
+  {
+    id: "stress",
+    label: "Gestion du Stress",
+    icon: <SmilePlus className="h-4 w-4" />,
+    subcategories: ["Toutes", "Gérer son stress", "Comprendre le stress", "Bien-être"],
+  },
+];
+
 const mobileCategories = [
   {
     id: "alimentation",
