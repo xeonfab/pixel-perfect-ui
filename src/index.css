@@ -67,4 +67,12 @@
   .hover-scale {
     @apply transition-all duration-200 hover:scale-[1.02] hover:shadow-lg;
   }
+
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
 }
