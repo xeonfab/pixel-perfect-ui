@@ -195,7 +195,13 @@ const Index = () => {
               Sommaire des dossiers
             </h1>
 
-            <TableOfContents />
+            <DesktopCategoryNav
+              categories={desktopCategories}
+              activeCategory={activeCategory}
+              activeSubcategory={activeSubcategory}
+              onCategoryChange={handleCategoryChange}
+              onSubcategoryChange={handleSubcategoryChange}
+            />
 
             <div className="mt-14 mb-10">
               <h2 className="text-2xl font-bold text-foreground">Le Mag'</h2>
@@ -204,11 +210,19 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="space-y-14">
-              {sections.map((section) => (
-                <ArticleSection key={section.id} {...section} />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <ArticleSkeletonCard />
+                <ArticleSkeletonCard />
+                <ArticleSkeletonCard />
+              </div>
+            ) : (
+              <div className="space-y-14 animate-fade-in">
+                {activeSection && (
+                  <ArticleSection key={activeCategory} {...activeSection} />
+                )}
+              </div>
+            )}
           </>
         )}
 
