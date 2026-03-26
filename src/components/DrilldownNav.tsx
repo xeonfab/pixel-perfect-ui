@@ -110,7 +110,7 @@ const DrilldownNav = ({
             isMobile ?
             "px-3 py-1.5 text-xs" :
             "px-4 py-1.5 text-xs",
-            "bg-mnh-teal text-primary-foreground shadow-sm"
+            `${activeColor} text-primary-foreground shadow-sm`
           )}>
               {child.label}
             </button>
