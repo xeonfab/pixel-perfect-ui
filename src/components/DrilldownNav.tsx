@@ -74,7 +74,7 @@ const DrilldownNav = ({
           "flex gap-2 transition-all duration-300 ease-in-out",
           isMobile ?
           "px-4 pb-3 overflow-x-auto scrollbar-hidden" :
-          "items-center justify-center gap-3"
+          "items-center justify-start gap-3"
         )}>
         
           {/* Back button when deeper than level 1 */}
