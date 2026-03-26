@@ -9,6 +9,7 @@ interface DrilldownNavProps {
   activeNodeId: string | null;
   currentChildren: CategoryNode[];
   parentLabel: string | null;
+  activeColor?: string;
   onRootChange: (id: string) => void;
   onChildSelect: (id: string) => void;
   onBack: () => void;
