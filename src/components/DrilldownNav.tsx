@@ -22,6 +22,7 @@ const DrilldownNav = ({
   activeNodeId,
   currentChildren,
   parentLabel,
+  activeColor = "bg-mnh-teal",
   onRootChange,
   onChildSelect,
   onBack,
