@@ -166,30 +166,6 @@ const Index = () => {
       )}
 
       <main className={isMobile ? "px-4 py-6" : "max-w-7xl mx-auto px-6 py-8"}>
-        {/* Breadcrumb */}
-        <nav className="flex items-center flex-wrap gap-1 text-sm mb-6 lg:mb-8">
-          {breadcrumbItems.map((item, i) => {
-            const isLast = i === breadcrumbItems.length - 1;
-            const isStatic = i < 2; // Accueil, Dossiers are static
-            return (
-              <span key={i} className="flex items-center gap-1">
-                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />}
-                {isLast ? (
-                  <span className="text-foreground font-medium">{item.label}</span>
-                ) : (
-                  <button
-                    onClick={() => {
-                      if (!isStatic) handleBreadcrumbClick(i - 2);
-                    }}
-                    className="text-muted-foreground hover:text-accent underline-offset-2 hover:underline transition-colors"
-                  >
-                    {item.label}
-                  </button>
-                )}
-              </span>
-            );
-          })}
-        </nav>
 
         {/* Desktop layout */}
         {!isMobile && (
