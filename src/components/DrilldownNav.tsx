@@ -61,7 +61,7 @@ const DrilldownNav = ({
           )}>
           
             {!isMobile && cat.icon}
-            {isMobile ? cat.label.split(" ")[0] : cat.label}
+            {isMobile ? cat.label.replace(/ et Forme$/, "").replace(/^Le /, "").replace(/ du /, " ") : cat.label}
           </button>
         )}
       </div>
