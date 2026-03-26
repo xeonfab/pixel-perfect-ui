@@ -54,7 +54,7 @@ const allArticles: Article[] = [
 
 const Index = () => {
   const isMobile = useIsMobile();
-  const [activeRootId, setActiveRootId] = useState("alimentation");
+  const [activeRootId, setActiveRootId] = useState("toutes");
   // null means "show root's children", otherwise an ID deeper in the tree
   const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
