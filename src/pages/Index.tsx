@@ -10,6 +10,7 @@ import {
   categoryTree,
   findNodePath,
   tagToCategoryMap,
+  categoryColorMap,
   type CategoryNode,
 } from "@/data/categories";
 
