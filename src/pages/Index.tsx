@@ -41,6 +41,15 @@ const allArticles: Article[] = [
   { image: articleBurnout, category: "Article", tag: "Gérer son stress", title: "Comment lutter contre le burnout parental ?", readingTime: 8 },
   { image: articleGrossesse, category: "Article", tag: "Gérer son stress", title: "Stress durant la grossesse : les risques pour le bébé et les solutions pour déstresser", readingTime: 7 },
   { image: articleAnxiete, category: "Article", tag: "Comprendre le stress", title: "L'anxiété du Nouvel An : comment le gérer ?", readingTime: 4 },
+  { image: articleJeune, category: "Article", tag: "Jeûne intermittent", title: "Jeûne de 16h : bienfaits, risques et conseils pour débuter sereinement", readingTime: 6 },
+  { image: articleImc, category: "Article", tag: "Poids et santé", title: "Comprendre la relation entre alimentation émotionnelle et prise de poids", readingTime: 5 },
+  { image: articleImc2, category: "Article", tag: "IMC et repères", title: "IMC après 50 ans : pourquoi les repères changent avec l'âge", readingTime: 7 },
+  { image: articleSomnambulisme, category: "Article", tag: "Troubles du sommeil", title: "Terreurs nocturnes chez l'adulte : causes et solutions", readingTime: 5 },
+  { image: articleInsomnie, category: "Article", tag: "Insomnie et santé", title: "Écrans et insomnie : comment la lumière bleue perturbe votre sommeil", readingTime: 6 },
+  { image: articleHomeopathie, category: "Article", tag: "Troubles du sommeil", title: "Apnée du sommeil : signes d'alerte et traitements efficaces", readingTime: 8 },
+  { image: articleBurnout, category: "Article", tag: "Gérer son stress", title: "5 techniques de respiration pour calmer une crise d'angoisse", readingTime: 4 },
+  { image: articleGrossesse, category: "Article", tag: "Comprendre le stress", title: "Le stress chronique : comprendre ses effets sur le corps et l'esprit", readingTime: 9 },
+  { image: articleAnxiete, category: "Article", tag: "Comprendre le stress", title: "Stress au travail : identifier les signaux avant le burn-out", readingTime: 6 },
 ];
 
 const Index = () => {
