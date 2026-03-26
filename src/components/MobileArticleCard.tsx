@@ -8,6 +8,7 @@ interface MobileArticleCardProps {
   readingTime?: number;
   isHero?: boolean;
   parentCategory?: string;
+  parentCategoryColor?: string;
 }
 
 const MobileArticleCard = ({
