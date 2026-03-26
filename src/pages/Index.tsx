@@ -99,6 +99,7 @@ const Index = () => {
 
   // Filter articles based on active node
   const filteredArticles = useMemo(() => {
+    if (activeRootId === "toutes" && !activeNodeId) return allArticles;
     const nodeId = activeNodeId || activeRootId;
     return allArticles.filter((a) => {
       const mapped = tagToCategoryMap[a.tag];
