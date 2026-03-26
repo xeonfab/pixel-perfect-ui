@@ -80,6 +80,7 @@ export const categoryTree: CategoryNode[] = [
     id: "stress",
     label: "Gestion du Stress",
     icon: createElement(SmilePlus, { className: "h-4 w-4" }),
+    color: "bg-mnh-orange",
     children: [
       { id: "str-toutes", label: "Toutes" },
       {
