@@ -3,9 +3,10 @@ interface ArticleCardProps {
   category: string;
   tag: string;
   title: string;
+  parentCategory?: string;
 }
 
-const ArticleCard = ({ image, category, tag, title }: ArticleCardProps) => {
+const ArticleCard = ({ image, category, tag, title, parentCategory }: ArticleCardProps) => {
   return (
     <article className="group bg-card rounded-xl overflow-hidden shadow-sm border border-border/50 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
       <div className="overflow-hidden">
@@ -19,10 +20,18 @@ const ArticleCard = ({ image, category, tag, title }: ArticleCardProps) => {
         />
       </div>
       <div className="p-5">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-          <span>{category}</span>
-          <span className="text-border">|</span>
-          <span className="text-accent">{tag}</span>
+        <div className="flex flex-wrap gap-2 items-center mb-3">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-muted-foreground">
+            {category}
+          </span>
+          {parentCategory && (
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-mnh-teal text-primary-foreground">
+              {parentCategory}
+            </span>
+          )}
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border border-border text-accent">
+            {tag}
+          </span>
         </div>
         <h3 className="text-sm font-bold text-foreground leading-snug group-hover:text-accent transition-colors">
           {title}

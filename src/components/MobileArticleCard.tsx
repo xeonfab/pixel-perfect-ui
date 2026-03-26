@@ -7,6 +7,7 @@ interface MobileArticleCardProps {
   title: string;
   readingTime?: number;
   isHero?: boolean;
+  parentCategory?: string;
 }
 
 const MobileArticleCard = ({
@@ -16,6 +17,7 @@ const MobileArticleCard = ({
   title,
   readingTime = 5,
   isHero = false,
+  parentCategory,
 }: MobileArticleCardProps) => {
   return (
     <article
@@ -35,10 +37,18 @@ const MobileArticleCard = ({
         />
       </div>
       <div className={isHero ? "p-5" : "p-4"}>
-        <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-semibold text-mnh-teal mb-2">
-          <span>{category}</span>
-          <span className="text-muted-foreground">•</span>
-          <span>{tag}</span>
+        <div className="flex flex-wrap gap-2 items-center mb-3">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-muted-foreground">
+            {category}
+          </span>
+          {parentCategory && (
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-mnh-teal text-primary-foreground">
+              {parentCategory}
+            </span>
+          )}
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border border-border text-accent">
+            {tag}
+          </span>
         </div>
         <h3
           className={cn(

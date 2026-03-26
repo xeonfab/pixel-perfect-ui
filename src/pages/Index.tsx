@@ -94,6 +94,9 @@ const Index = () => {
     return currentPath[currentPath.length - 2]?.label || null;
   }, [currentPath]);
 
+  // Get root category label
+  const activeRootLabel = categoryTree.find((c) => c.id === activeRootId)?.label || "";
+
   // Filter articles based on active node
   const filteredArticles = useMemo(() => {
     const nodeId = activeNodeId || activeRootId;
@@ -102,9 +105,6 @@ const Index = () => {
       return mapped?.includes(nodeId);
     });
   }, [activeNodeId, activeRootId]);
-
-  // Heading for current section
-  const sectionHeading = currentNode?.label || "Articles";
 
   const handleRootChange = useCallback((id: string) => {
     if (id === activeRootId && !activeNodeId) return;
