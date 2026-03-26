@@ -100,6 +100,7 @@ const Index = () => {
     return categoryTree.find((c) => c.id === activeRootId)?.label || "";
   }, [activeRootId]);
 
+  const activeRootColor = categoryTree.find((c) => c.id === activeRootId)?.color || "bg-mnh-teal";
   // Filter articles based on active node
   const filteredArticles = useMemo(() => {
     if (activeRootId === "toutes" && !activeNodeId) return allArticles;
