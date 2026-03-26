@@ -19,6 +19,7 @@ const MobileArticleCard = ({
   readingTime = 5,
   isHero = false,
   parentCategory,
+  parentCategoryColor,
 }: MobileArticleCardProps) => {
   return (
     <article
