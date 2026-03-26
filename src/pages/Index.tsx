@@ -202,6 +202,7 @@ const Index = () => {
                     heading=""
                     articles={filteredArticles}
                     parentCategory={activeRootLabel}
+                    getParentCategory={activeRootId === "toutes" ? getArticleParentCategory : undefined}
                   />
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
