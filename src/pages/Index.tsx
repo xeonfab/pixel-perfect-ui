@@ -202,9 +202,7 @@ const Index = () => {
         {/* Mobile layout */}
         {isMobile && (
           <div className="space-y-4">
-            <h2 className="text-xl font-bold text-foreground mb-2">
-              {sectionHeading}
-            </h2>
+            <h2 className="sr-only">Articles</h2>
 
             {isLoading ? (
               <div className="space-y-4">
