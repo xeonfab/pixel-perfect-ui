@@ -183,6 +183,7 @@ const Index = () => {
               activeNodeId={activeNodeId}
               currentChildren={currentChildren}
               parentLabel={parentLabel}
+              activeColor={activeRootColor}
               onRootChange={handleRootChange}
               onChildSelect={handleChildSelect}
               onBack={handleBack}
