@@ -122,6 +122,11 @@ export function getAllDescendantIds(node: CategoryNode): string[] {
   return [node.id, ...node.children.flatMap(getAllDescendantIds)];
 }
 
+// Map root category ID to its color class
+export const categoryColorMap: Record<string, string> = Object.fromEntries(
+  categoryTree.filter((c) => c.color).map((c) => [c.label, c.color!])
+);
+
 // Map article tags to category node IDs for filtering
 export const tagToCategoryMap: Record<string, string[]> = {
   "Jeûne intermittent": ["alimentation", "ali-toutes", "ali-maigrir", "ali-mai-regimes", "ali-mai-reg-jeune"],

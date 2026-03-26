@@ -10,6 +10,7 @@ import {
   categoryTree,
   findNodePath,
   tagToCategoryMap,
+  categoryColorMap,
   type CategoryNode,
 } from "@/data/categories";
 
@@ -120,6 +121,15 @@ const Index = () => {
     return categoryTree.find((c) => c.id === rootId)?.label || "";
   }, [activeRootId, activeRootLabel]);
 
+  // Helper: get parent category color for an article tag
+  const getArticleParentCategoryColor = useCallback((tag: string) => {
+    if (activeRootId !== "toutes") return activeRootColor;
+    const mapped = tagToCategoryMap[tag];
+    if (!mapped || mapped.length === 0) return "bg-mnh-teal";
+    const rootId = mapped[0];
+    return categoryTree.find((c) => c.id === rootId)?.color || "bg-mnh-teal";
+  }, [activeRootId, activeRootColor]);
+
   const handleRootChange = useCallback((id: string) => {
     if (id === activeRootId && !activeNodeId) return;
     setActiveRootId(id);
@@ -205,7 +215,9 @@ const Index = () => {
                     heading=""
                     articles={filteredArticles}
                     parentCategory={activeRootLabel}
+                    parentCategoryColor={activeRootColor}
                     getParentCategory={activeRootId === "toutes" ? getArticleParentCategory : undefined}
+                    getParentCategoryColor={activeRootId === "toutes" ? getArticleParentCategoryColor : undefined}
                   />
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
@@ -237,6 +249,7 @@ const Index = () => {
                       {...article}
                       isHero={i === 0}
                       parentCategory={getArticleParentCategory(article.tag)}
+                      parentCategoryColor={getArticleParentCategoryColor(article.tag)}
                     />
                   ))
                 ) : (

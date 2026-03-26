@@ -4,9 +4,10 @@ interface ArticleCardProps {
   tag: string;
   title: string;
   parentCategory?: string;
+  parentCategoryColor?: string;
 }
 
-const ArticleCard = ({ image, category, tag, title, parentCategory }: ArticleCardProps) => {
+const ArticleCard = ({ image, category, tag, title, parentCategory, parentCategoryColor }: ArticleCardProps) => {
   return (
     <article className="group bg-card rounded-xl overflow-hidden shadow-sm border border-border/50 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
       <div className="overflow-hidden">
@@ -25,7 +26,7 @@ const ArticleCard = ({ image, category, tag, title, parentCategory }: ArticleCar
             {category}
           </span>
           {parentCategory && (
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-mnh-teal text-primary-foreground">
+            <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium text-primary-foreground ${parentCategoryColor || 'bg-mnh-teal'}`}>
               {parentCategory}
             </span>
           )}
