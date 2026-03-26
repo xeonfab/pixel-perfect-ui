@@ -5,6 +5,7 @@ export interface CategoryNode {
   id: string;
   label: string;
   icon?: React.ReactNode;
+  color?: string; // Tailwind bg class for active state
   children?: CategoryNode[];
 }
 
@@ -13,11 +14,13 @@ export const categoryTree: CategoryNode[] = [
     id: "toutes",
     label: "Toutes",
     icon: createElement(LayoutGrid, { className: "h-4 w-4" }),
+    color: "bg-mnh-navy",
   },
   {
     id: "alimentation",
     label: "Alimentation et Forme",
     icon: createElement(Apple, { className: "h-4 w-4" }),
+    color: "bg-mnh-teal",
     children: [
       { id: "ali-toutes", label: "Toutes" },
       {
@@ -56,6 +59,7 @@ export const categoryTree: CategoryNode[] = [
     id: "sommeil",
     label: "Le Sommeil",
     icon: createElement(Moon, { className: "h-4 w-4" }),
+    color: "bg-mnh-blue",
     children: [
       { id: "som-toutes", label: "Toutes" },
       {
@@ -76,6 +80,7 @@ export const categoryTree: CategoryNode[] = [
     id: "stress",
     label: "Gestion du Stress",
     icon: createElement(SmilePlus, { className: "h-4 w-4" }),
+    color: "bg-mnh-orange",
     children: [
       { id: "str-toutes", label: "Toutes" },
       {
