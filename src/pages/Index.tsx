@@ -110,6 +110,15 @@ const Index = () => {
     });
   }, [activeNodeId, activeRootId]);
 
+  // Helper: get parent category label for an article tag
+  const getArticleParentCategory = useCallback((tag: string) => {
+    if (activeRootId !== "toutes") return activeRootLabel;
+    const mapped = tagToCategoryMap[tag];
+    if (!mapped || mapped.length === 0) return "";
+    const rootId = mapped[0];
+    return categoryTree.find((c) => c.id === rootId)?.label || "";
+  }, [activeRootId, activeRootLabel]);
+
   const handleRootChange = useCallback((id: string) => {
     if (id === activeRootId && !activeNodeId) return;
     setActiveRootId(id);
