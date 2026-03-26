@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import DrilldownNav from "@/components/DrilldownNav";
 import ArticleSection from "@/components/ArticleSection";
@@ -65,10 +65,19 @@ const Index = () => {
   const currentNode = currentPath[currentPath.length - 1] || null;
 
   // Children to show in Line 2
+  // If active node is a leaf (no children), show its siblings (parent's children)
   const currentChildren: CategoryNode[] = useMemo(() => {
     if (!currentNode) return [];
-    return currentNode.children || [];
-  }, [currentNode]);
+    if (currentNode.children && currentNode.children.length > 0) {
+      return currentNode.children;
+    }
+    // Leaf node: show siblings from parent
+    if (currentPath.length >= 2) {
+      const parent = currentPath[currentPath.length - 2];
+      return parent.children || [];
+    }
+    return [];
+  }, [currentNode, currentPath]);
 
   // Parent label for back button (show when depth >= 2)
   const parentLabel = useMemo(() => {
@@ -117,25 +126,6 @@ const Index = () => {
     triggerLoading(400);
   }, [currentPath, triggerLoading]);
 
-  const handleBreadcrumbClick = useCallback((index: number) => {
-    if (index === 0) {
-      // Root level
-      setActiveRootId(currentPath[0].id);
-      setActiveNodeId(null);
-    } else {
-      setActiveNodeId(currentPath[index].id);
-    }
-    triggerLoading(400);
-  }, [currentPath, triggerLoading]);
-
-  // Breadcrumb items
-  const breadcrumbItems = useMemo(() => {
-    const items = [{ label: "Accueil", clickable: true }, { label: "Dossiers", clickable: true }];
-    currentPath.forEach((node) => {
-      items.push({ label: node.label, clickable: true });
-    });
-    return items;
-  }, [currentPath]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -157,30 +147,6 @@ const Index = () => {
       )}
 
       <main className={isMobile ? "px-4 py-6" : "max-w-7xl mx-auto px-6 py-8"}>
-        {/* Breadcrumb */}
-        <nav className="flex items-center flex-wrap gap-1 text-sm mb-6 lg:mb-8">
-          {breadcrumbItems.map((item, i) => {
-            const isLast = i === breadcrumbItems.length - 1;
-            const isStatic = i < 2; // Accueil, Dossiers are static
-            return (
-              <span key={i} className="flex items-center gap-1">
-                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />}
-                {isLast ? (
-                  <span className="text-foreground font-medium">{item.label}</span>
-                ) : (
-                  <button
-                    onClick={() => {
-                      if (!isStatic) handleBreadcrumbClick(i - 2);
-                    }}
-                    className="text-muted-foreground hover:text-accent underline-offset-2 hover:underline transition-colors"
-                  >
-                    {item.label}
-                  </button>
-                )}
-              </span>
-            );
-          })}
-        </nav>
 
         {/* Desktop layout */}
         {!isMobile && (

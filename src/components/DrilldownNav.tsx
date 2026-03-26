@@ -94,21 +94,36 @@ const DrilldownNav = ({
             </button>
         }
 
-          {currentChildren.map((child) =>
+          {/* Active pill first (when showing siblings) */}
+          {currentChildren.filter(c => c.id === activeNodeId).map((child) =>
         <button
           key={child.id}
-          data-active={child.id === activeNodeId}
+          data-active="true"
+          onClick={() => onChildSelect(child.id)}
+          className={cn(
+            "shrink-0 rounded-full font-medium transition-all duration-200",
+            isMobile ?
+            "px-3 py-1.5 text-xs" :
+            "px-4 py-1.5 text-xs",
+            "bg-mnh-teal text-primary-foreground shadow-sm"
+          )}>
+              {child.label}
+            </button>
+        )}
+
+          {/* Other pills */}
+          {currentChildren.filter(c => c.id !== activeNodeId).map((child) =>
+        <button
+          key={child.id}
+          data-active={false}
           onClick={() => onChildSelect(child.id)}
           className={cn(
             "shrink-0 rounded-full font-medium border transition-all duration-200",
             isMobile ?
             "px-3 py-1.5 text-xs" :
             "px-4 py-1.5 text-xs",
-            child.id === activeNodeId ?
-            "border-mnh-teal text-mnh-teal bg-mnh-teal/10" :
             "border-border text-muted-foreground hover:border-mnh-teal/50 hover:text-foreground"
           )}>
-          
               {child.label}
             </button>
         )}
