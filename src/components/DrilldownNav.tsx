@@ -44,7 +44,7 @@ const DrilldownNav = ({
         "flex gap-2",
         isMobile ?
         "px-4 py-3 overflow-x-auto scrollbar-hidden" :
-        "items-center justify-center gap-4"
+        "items-center justify-start gap-4"
       )}>
         {roots.map((cat) =>
         <button
