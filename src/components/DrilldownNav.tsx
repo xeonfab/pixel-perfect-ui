@@ -41,6 +41,16 @@ const DrilldownNav = ({
     "lg:hidden sticky top-[57px] z-40 bg-card border-b border-border" :
     "space-y-4"
     )}>
+      {/* Back to dashboard link */}
+      {!isMobile && (
+        <div className="flex items-center mb-1">
+          <button className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Retour au dashboard
+          </button>
+        </div>
+      )}
+
       {/* Row 1: Root categories */}
       <div className={cn(
         "flex gap-2",
