@@ -249,6 +249,7 @@ const Index = () => {
                       {...article}
                       isHero={i === 0}
                       parentCategory={getArticleParentCategory(article.tag)}
+                      parentCategoryColor={getArticleParentCategoryColor(article.tag)}
                     />
                   ))
                 ) : (
