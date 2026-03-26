@@ -1,4 +1,4 @@
-import { Apple, Moon, SmilePlus } from "lucide-react";
+import { Apple, Moon, SmilePlus, LayoutGrid } from "lucide-react";
 import { createElement } from "react";
 
 export interface CategoryNode {
@@ -9,6 +9,11 @@ export interface CategoryNode {
 }
 
 export const categoryTree: CategoryNode[] = [
+  {
+    id: "toutes",
+    label: "Toutes",
+    icon: createElement(LayoutGrid, { className: "h-4 w-4" }),
+  },
   {
     id: "alimentation",
     label: "Alimentation et Forme",

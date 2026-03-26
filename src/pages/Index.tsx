@@ -54,7 +54,7 @@ const allArticles: Article[] = [
 
 const Index = () => {
   const isMobile = useIsMobile();
-  const [activeRootId, setActiveRootId] = useState("alimentation");
+  const [activeRootId, setActiveRootId] = useState("toutes");
   // null means "show root's children", otherwise an ID deeper in the tree
   const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -94,17 +94,30 @@ const Index = () => {
     return currentPath[currentPath.length - 2]?.label || null;
   }, [currentPath]);
 
-  // Get root category label
-  const activeRootLabel = categoryTree.find((c) => c.id === activeRootId)?.label || "";
+  // Get root category label — for "toutes", derive from article tag
+  const activeRootLabel = useMemo(() => {
+    if (activeRootId === "toutes") return "";
+    return categoryTree.find((c) => c.id === activeRootId)?.label || "";
+  }, [activeRootId]);
 
   // Filter articles based on active node
   const filteredArticles = useMemo(() => {
+    if (activeRootId === "toutes" && !activeNodeId) return allArticles;
     const nodeId = activeNodeId || activeRootId;
     return allArticles.filter((a) => {
       const mapped = tagToCategoryMap[a.tag];
       return mapped?.includes(nodeId);
     });
   }, [activeNodeId, activeRootId]);
+
+  // Helper: get parent category label for an article tag
+  const getArticleParentCategory = useCallback((tag: string) => {
+    if (activeRootId !== "toutes") return activeRootLabel;
+    const mapped = tagToCategoryMap[tag];
+    if (!mapped || mapped.length === 0) return "";
+    const rootId = mapped[0];
+    return categoryTree.find((c) => c.id === rootId)?.label || "";
+  }, [activeRootId, activeRootLabel]);
 
   const handleRootChange = useCallback((id: string) => {
     if (id === activeRootId && !activeNodeId) return;
@@ -189,6 +202,7 @@ const Index = () => {
                     heading=""
                     articles={filteredArticles}
                     parentCategory={activeRootLabel}
+                    getParentCategory={activeRootId === "toutes" ? getArticleParentCategory : undefined}
                   />
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
@@ -219,7 +233,7 @@ const Index = () => {
                       key={`${article.tag}-${i}`}
                       {...article}
                       isHero={i === 0}
-                      parentCategory={activeRootLabel}
+                      parentCategory={getArticleParentCategory(article.tag)}
                     />
                   ))
                 ) : (
