@@ -215,7 +215,9 @@ const Index = () => {
                     heading=""
                     articles={filteredArticles}
                     parentCategory={activeRootLabel}
+                    parentCategoryColor={activeRootColor}
                     getParentCategory={activeRootId === "toutes" ? getArticleParentCategory : undefined}
+                    getParentCategoryColor={activeRootId === "toutes" ? getArticleParentCategoryColor : undefined}
                   />
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
