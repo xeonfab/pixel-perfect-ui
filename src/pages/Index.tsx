@@ -188,6 +188,7 @@ const Index = () => {
                     id={activeRootId}
                     heading=""
                     articles={filteredArticles}
+                    parentCategory={activeRootLabel}
                   />
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
