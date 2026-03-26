@@ -46,24 +46,27 @@ const DrilldownNav = ({
         "px-4 py-3 overflow-x-auto scrollbar-hidden" :
         "items-center justify-start gap-4"
       )}>
-        {roots.map((cat) =>
-        <button
-          key={cat.id}
-          onClick={() => onRootChange(cat.id)}
-          className={cn(
-            "shrink-0 rounded-full font-semibold transition-all duration-200",
-            isMobile ?
-            "px-4 py-2 text-sm" :
-            "flex items-center gap-2.5 px-6 py-3 text-sm",
-            cat.id === activeRootId ?
-            "bg-mnh-teal text-primary-foreground shadow-md" :
-            "bg-secondary text-foreground hover:bg-muted hover:shadow-sm"
-          )}>
-          
+        {roots.map((cat) => {
+          const isActive = cat.id === activeRootId;
+          const activeColor = cat.color || "bg-mnh-teal";
+          return (
+          <button
+            key={cat.id}
+            onClick={() => onRootChange(cat.id)}
+            className={cn(
+              "shrink-0 rounded-full font-semibold transition-all duration-200",
+              isMobile ?
+              "px-4 py-2 text-sm" :
+              "flex items-center gap-2.5 px-6 py-3 text-sm",
+              isActive ?
+              `${activeColor} text-primary-foreground shadow-md` :
+              "bg-secondary text-foreground hover:bg-muted hover:shadow-sm"
+            )}>
             {!isMobile && cat.icon}
-            {isMobile ? cat.label.replace(/ et Forme$/, "").replace(/^Le /, "").replace(/ du /, " ") : cat.label}
+            {isMobile ? cat.label.replace(/ et Forme$/, "").replace(/^Le /, "").replace(/ du /, " ").replace(/^Gestion /, "") : cat.label}
           </button>
-        )}
+          );
+        })}
       </div>
 
       {/* Row 2: Children of active node */}
