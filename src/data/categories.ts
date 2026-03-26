@@ -59,6 +59,7 @@ export const categoryTree: CategoryNode[] = [
     id: "sommeil",
     label: "Le Sommeil",
     icon: createElement(Moon, { className: "h-4 w-4" }),
+    color: "bg-mnh-blue",
     children: [
       { id: "som-toutes", label: "Toutes" },
       {
