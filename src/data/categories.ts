@@ -5,6 +5,7 @@ export interface CategoryNode {
   id: string;
   label: string;
   icon?: React.ReactNode;
+  color?: string; // Tailwind bg class for active state
   children?: CategoryNode[];
 }
 
