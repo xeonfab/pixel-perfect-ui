@@ -4,9 +4,10 @@ interface ArticleCardProps {
   tag: string;
   title: string;
   parentCategory?: string;
+  parentCategoryColor?: string;
 }
 
-const ArticleCard = ({ image, category, tag, title, parentCategory }: ArticleCardProps) => {
+const ArticleCard = ({ image, category, tag, title, parentCategory, parentCategoryColor }: ArticleCardProps) => {
   return (
     <article className="group bg-card rounded-xl overflow-hidden shadow-sm border border-border/50 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
       <div className="overflow-hidden">
