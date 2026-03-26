@@ -219,6 +219,7 @@ const Index = () => {
                       key={`${article.tag}-${i}`}
                       {...article}
                       isHero={i === 0}
+                      parentCategory={activeRootLabel}
                     />
                   ))
                 ) : (
