@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import DrilldownNav from "@/components/DrilldownNav";
 import ArticleSection from "@/components/ArticleSection";
