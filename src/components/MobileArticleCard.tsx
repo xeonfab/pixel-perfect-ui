@@ -44,7 +44,7 @@ const MobileArticleCard = ({
             {category}
           </span>
           {parentCategory && (
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-mnh-teal text-primary-foreground">
+            <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium text-primary-foreground ${parentCategoryColor || 'bg-mnh-teal'}`}>
               {parentCategory}
             </span>
           )}
