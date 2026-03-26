@@ -10,6 +10,11 @@ export interface CategoryNode {
 
 export const categoryTree: CategoryNode[] = [
   {
+    id: "toutes",
+    label: "Toutes",
+    icon: createElement(LayoutGrid, { className: "h-4 w-4" }),
+  },
+  {
     id: "alimentation",
     label: "Alimentation et Forme",
     icon: createElement(Apple, { className: "h-4 w-4" }),

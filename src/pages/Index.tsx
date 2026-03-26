@@ -94,8 +94,11 @@ const Index = () => {
     return currentPath[currentPath.length - 2]?.label || null;
   }, [currentPath]);
 
-  // Get root category label
-  const activeRootLabel = categoryTree.find((c) => c.id === activeRootId)?.label || "";
+  // Get root category label — for "toutes", derive from article tag
+  const activeRootLabel = useMemo(() => {
+    if (activeRootId === "toutes") return "";
+    return categoryTree.find((c) => c.id === activeRootId)?.label || "";
+  }, [activeRootId]);
 
   // Filter articles based on active node
   const filteredArticles = useMemo(() => {
