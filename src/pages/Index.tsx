@@ -121,6 +121,15 @@ const Index = () => {
     return categoryTree.find((c) => c.id === rootId)?.label || "";
   }, [activeRootId, activeRootLabel]);
 
+  // Helper: get parent category color for an article tag
+  const getArticleParentCategoryColor = useCallback((tag: string) => {
+    if (activeRootId !== "toutes") return activeRootColor;
+    const mapped = tagToCategoryMap[tag];
+    if (!mapped || mapped.length === 0) return "bg-mnh-teal";
+    const rootId = mapped[0];
+    return categoryTree.find((c) => c.id === rootId)?.color || "bg-mnh-teal";
+  }, [activeRootId, activeRootColor]);
+
   const handleRootChange = useCallback((id: string) => {
     if (id === activeRootId && !activeNodeId) return;
     setActiveRootId(id);
