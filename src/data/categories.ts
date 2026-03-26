@@ -1,4 +1,4 @@
-import { Apple, Moon, SmilePlus } from "lucide-react";
+import { Apple, Moon, SmilePlus, LayoutGrid } from "lucide-react";
 import { createElement } from "react";
 
 export interface CategoryNode {
