@@ -126,25 +126,6 @@ const Index = () => {
     triggerLoading(400);
   }, [currentPath, triggerLoading]);
 
-  const handleBreadcrumbClick = useCallback((index: number) => {
-    if (index === 0) {
-      // Root level
-      setActiveRootId(currentPath[0].id);
-      setActiveNodeId(null);
-    } else {
-      setActiveNodeId(currentPath[index].id);
-    }
-    triggerLoading(400);
-  }, [currentPath, triggerLoading]);
-
-  // Breadcrumb items
-  const breadcrumbItems = useMemo(() => {
-    const items = [{ label: "Accueil", clickable: true }, { label: "Dossiers", clickable: true }];
-    currentPath.forEach((node) => {
-      items.push({ label: node.label, clickable: true });
-    });
-    return items;
-  }, [currentPath]);
 
   return (
     <div className="min-h-screen bg-background">
