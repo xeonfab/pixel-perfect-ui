@@ -65,10 +65,19 @@ const Index = () => {
   const currentNode = currentPath[currentPath.length - 1] || null;
 
   // Children to show in Line 2
+  // If active node is a leaf (no children), show its siblings (parent's children)
   const currentChildren: CategoryNode[] = useMemo(() => {
     if (!currentNode) return [];
-    return currentNode.children || [];
-  }, [currentNode]);
+    if (currentNode.children && currentNode.children.length > 0) {
+      return currentNode.children;
+    }
+    // Leaf node: show siblings from parent
+    if (currentPath.length >= 2) {
+      const parent = currentPath[currentPath.length - 2];
+      return parent.children || [];
+    }
+    return [];
+  }, [currentNode, currentPath]);
 
   // Parent label for back button (show when depth >= 2)
   const parentLabel = useMemo(() => {
