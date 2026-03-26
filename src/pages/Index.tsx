@@ -173,12 +173,7 @@ const Index = () => {
               onBack={handleBack}
             />
 
-            <div className="mt-14 mb-10">
-              <h2 className="text-2xl font-bold text-foreground">{sectionHeading}</h2>
-              <p className="text-muted-foreground mt-1">
-                Toute l'actualité et de précieux conseils pour améliorer mon bien-être
-              </p>
-            </div>
+            <div className="mt-10" />
 
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
