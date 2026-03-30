@@ -37,7 +37,7 @@ export const categoryTree: CategoryNode[] = [
         id: "ali-maigrir",
         label: "Comment maigrir",
         children: [
-          { id: "ali-mai-toutes", label: "Toutes" },
+          { id: "ali-mai-toutes", label: "Tout" },
           {
             id: "ali-mai-regimes",
             label: "Régimes",
