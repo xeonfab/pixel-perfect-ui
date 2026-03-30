@@ -27,7 +27,7 @@ export const categoryTree: CategoryNode[] = [
         id: "ali-recettes",
         label: "Recettes",
         children: [
-          { id: "ali-rec-toutes", label: "Toutes" },
+          { id: "ali-rec-toutes", label: "Tout" },
           { id: "ali-rec-legeres", label: "Recettes légères" },
           { id: "ali-rec-equilibrees", label: "Repas équilibrés" },
           { id: "ali-rec-desserts", label: "Desserts sains" },
