@@ -12,7 +12,7 @@ export interface CategoryNode {
 export const categoryTree: CategoryNode[] = [
   {
     id: "toutes",
-    label: "Toutes",
+    label: "Tout",
     icon: createElement(LayoutGrid, { className: "h-4 w-4" }),
     color: "bg-mnh-navy",
   },
