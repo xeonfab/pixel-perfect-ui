@@ -22,7 +22,7 @@ export const categoryTree: CategoryNode[] = [
     icon: createElement(Apple, { className: "h-4 w-4" }),
     color: "bg-mnh-teal",
     children: [
-      { id: "ali-toutes", label: "Toutes" },
+      { id: "ali-toutes", label: "Tout" },
       {
         id: "ali-recettes",
         label: "Recettes",
