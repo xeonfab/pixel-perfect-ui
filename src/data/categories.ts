@@ -87,7 +87,7 @@ export const categoryTree: CategoryNode[] = [
         id: "str-gerer",
         label: "Gérer son stress",
         children: [
-          { id: "str-ger-toutes", label: "Toutes" },
+          { id: "str-ger-toutes", label: "Tout" },
           { id: "str-ger-meditation", label: "Méditation" },
           { id: "str-ger-respiration", label: "Respiration" },
           { id: "str-ger-sport", label: "Sport anti-stress" },
