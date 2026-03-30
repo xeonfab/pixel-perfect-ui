@@ -66,7 +66,7 @@ export const categoryTree: CategoryNode[] = [
         id: "som-troubles",
         label: "Troubles du sommeil",
         children: [
-          { id: "som-tro-toutes", label: "Toutes" },
+          { id: "som-tro-toutes", label: "Tout" },
           { id: "som-tro-apnee", label: "Apnée du sommeil" },
           { id: "som-tro-somnambulisme", label: "Somnambulisme" },
           { id: "som-tro-narcolepsie", label: "Narcolepsie" },
