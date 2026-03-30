@@ -42,7 +42,7 @@ export const categoryTree: CategoryNode[] = [
             id: "ali-mai-regimes",
             label: "Régimes",
             children: [
-              { id: "ali-mai-reg-toutes", label: "Toutes" },
+              { id: "ali-mai-reg-toutes", label: "Tout" },
               { id: "ali-mai-reg-cetogene", label: "Régime cétogène" },
               { id: "ali-mai-reg-mediterraneen", label: "Régime méditerranéen" },
               { id: "ali-mai-reg-jeune", label: "Jeûne intermittent" },
