@@ -82,7 +82,7 @@ export const categoryTree: CategoryNode[] = [
     icon: createElement(SmilePlus, { className: "h-4 w-4" }),
     color: "bg-mnh-orange",
     children: [
-      { id: "str-toutes", label: "Toutes" },
+      { id: "str-toutes", label: "Tout" },
       {
         id: "str-gerer",
         label: "Gérer son stress",
