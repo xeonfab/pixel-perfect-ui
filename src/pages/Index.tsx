@@ -1,10 +1,12 @@
 import { useState, useCallback, useMemo } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import Header from "@/components/Header";
 import DrilldownNav from "@/components/DrilldownNav";
 import ArticleSection from "@/components/ArticleSection";
 import MobileArticleCard from "@/components/MobileArticleCard";
 import ArticleSkeletonCard from "@/components/ArticleSkeletonCard";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   categoryTree,
@@ -53,35 +55,35 @@ const allArticles: Article[] = [
   { image: articleAnxiete, category: "Article", tag: "Comprendre le stress", title: "Stress au travail : identifier les signaux avant le burn-out", readingTime: 6 },
 ];
 
+const ARTICLES_PER_PAGE = 9;
+
 const Index = () => {
   const isMobile = useIsMobile();
   const [activeRootId, setActiveRootId] = useState("toutes");
-  // null means "show root's children", otherwise an ID deeper in the tree
   const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
+
+  const isSearchActive = searchQuery.trim().length > 0;
 
   const triggerLoading = useCallback((ms = 500) => {
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), ms);
   }, []);
 
-  // Compute the current path for breadcrumb
   const currentPath = useMemo(() => {
     if (!activeNodeId) return [categoryTree.find((c) => c.id === activeRootId)!];
     return findNodePath(categoryTree, activeNodeId) || [];
   }, [activeRootId, activeNodeId]);
 
-  // Current node is the last in path
   const currentNode = currentPath[currentPath.length - 1] || null;
 
-  // Children to show in Line 2
-  // If active node is a leaf (no children), show its siblings (parent's children)
   const currentChildren: CategoryNode[] = useMemo(() => {
     if (!currentNode) return [];
     if (currentNode.children && currentNode.children.length > 0) {
       return currentNode.children;
     }
-    // Leaf node: show siblings from parent
     if (currentPath.length >= 2) {
       const parent = currentPath[currentPath.length - 2];
       return parent.children || [];
@@ -89,30 +91,48 @@ const Index = () => {
     return [];
   }, [currentNode, currentPath]);
 
-  // Parent label for back button (show when depth >= 2)
   const parentLabel = useMemo(() => {
     if (currentPath.length <= 1) return null;
     return currentPath[currentPath.length - 2]?.label || null;
   }, [currentPath]);
 
-  // Get root category label — for "toutes", derive from article tag
   const activeRootLabel = useMemo(() => {
     if (activeRootId === "toutes") return "";
     return categoryTree.find((c) => c.id === activeRootId)?.label || "";
   }, [activeRootId]);
 
   const activeRootColor = categoryTree.find((c) => c.id === activeRootId)?.color || "bg-mnh-teal";
-  // Filter articles based on active node
-  const filteredArticles = useMemo(() => {
-    if (activeRootId === "toutes" && !activeNodeId) return allArticles;
-    const nodeId = activeNodeId || activeRootId;
-    return allArticles.filter((a) => {
-      const mapped = tagToCategoryMap[a.tag];
-      return mapped?.includes(nodeId);
-    });
-  }, [activeNodeId, activeRootId]);
 
-  // Helper: get parent category label for an article tag
+  // Filter articles based on active node + search query
+  const filteredArticles = useMemo(() => {
+    let results = allArticles;
+
+    // Category filter
+    if (!(activeRootId === "toutes" && !activeNodeId)) {
+      const nodeId = activeNodeId || activeRootId;
+      results = results.filter((a) => {
+        const mapped = tagToCategoryMap[a.tag];
+        return mapped?.includes(nodeId);
+      });
+    }
+
+    // Search filter
+    if (isSearchActive) {
+      const q = searchQuery.trim().toLowerCase();
+      results = results.filter(
+        (a) =>
+          a.title.toLowerCase().includes(q) ||
+          a.tag.toLowerCase().includes(q) ||
+          a.category.toLowerCase().includes(q)
+      );
+    }
+
+    return results;
+  }, [activeNodeId, activeRootId, searchQuery, isSearchActive]);
+
+  const visibleArticles = filteredArticles.slice(0, visibleCount);
+  const hasMore = filteredArticles.length > visibleCount;
+
   const getArticleParentCategory = useCallback((tag: string) => {
     if (activeRootId !== "toutes") return activeRootLabel;
     const mapped = tagToCategoryMap[tag];
@@ -121,7 +141,6 @@ const Index = () => {
     return categoryTree.find((c) => c.id === rootId)?.label || "";
   }, [activeRootId, activeRootLabel]);
 
-  // Helper: get parent category color for an article tag
   const getArticleParentCategoryColor = useCallback((tag: string) => {
     if (activeRootId !== "toutes") return activeRootColor;
     const mapped = tagToCategoryMap[tag];
@@ -134,31 +153,75 @@ const Index = () => {
     if (id === activeRootId && !activeNodeId) return;
     setActiveRootId(id);
     setActiveNodeId(null);
+    setVisibleCount(ARTICLES_PER_PAGE);
     triggerLoading(600);
   }, [activeRootId, activeNodeId, triggerLoading]);
 
   const handleChildSelect = useCallback((id: string) => {
     if (id === activeNodeId) return;
-    // Find the node to see if it has children (drill deeper)
     const path = findNodePath(categoryTree, id);
     if (!path) return;
-    const node = path[path.length - 1];
     setActiveNodeId(id);
-    // If it has children, we're drilling down; if not, it's a leaf filter
+    setVisibleCount(ARTICLES_PER_PAGE);
     triggerLoading(400);
   }, [activeNodeId, triggerLoading]);
 
   const handleBack = useCallback(() => {
     if (currentPath.length <= 1) return;
-    // Go up one level: set activeNodeId to grandparent or null
     if (currentPath.length === 2) {
       setActiveNodeId(null);
     } else {
       setActiveNodeId(currentPath[currentPath.length - 2].id);
     }
+    setVisibleCount(ARTICLES_PER_PAGE);
     triggerLoading(400);
   }, [currentPath, triggerLoading]);
 
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + ARTICLES_PER_PAGE);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setVisibleCount(ARTICLES_PER_PAGE);
+  };
+
+  const SearchBar = () => (
+    <div className={`relative ${isMobile ? "w-full" : "w-72 ml-auto"}`}>
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <Input
+        type="text"
+        placeholder="Rechercher un article..."
+        value={searchQuery}
+        onChange={(e) => handleSearchChange(e.target.value)}
+        className="pl-9 h-9 text-sm rounded-full bg-secondary border-border"
+      />
+    </div>
+  );
+
+  const SearchSummary = () => {
+    if (!isSearchActive) return null;
+    return (
+      <p className="text-sm text-muted-foreground mb-4">
+        <span className="font-semibold text-foreground">{filteredArticles.length}</span> résultat{filteredArticles.length !== 1 ? "s" : ""} pour la recherche : <span className="font-medium text-foreground">« {searchQuery.trim()} »</span>
+      </p>
+    );
+  };
+
+  const LoadMoreButton = () => {
+    if (!hasMore) return null;
+    return (
+      <div className="flex justify-center mt-8">
+        <Button
+          variant="outline"
+          onClick={handleLoadMore}
+          className="rounded-full px-8"
+        >
+          Charger plus d'articles
+        </Button>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -170,8 +233,8 @@ const Index = () => {
           roots={categoryTree}
           activeRootId={activeRootId}
           activeNodeId={activeNodeId}
-          currentChildren={currentChildren}
-          parentLabel={parentLabel}
+          currentChildren={isSearchActive ? [] : currentChildren}
+          parentLabel={isSearchActive ? null : parentLabel}
           activeColor={activeRootColor}
           onRootChange={handleRootChange}
           onChildSelect={handleChildSelect}
@@ -185,21 +248,24 @@ const Index = () => {
         {/* Desktop layout */}
         {!isMobile && (
           <>
-
-
             <DrilldownNav
               roots={categoryTree}
               activeRootId={activeRootId}
               activeNodeId={activeNodeId}
-              currentChildren={currentChildren}
-              parentLabel={parentLabel}
+              currentChildren={isSearchActive ? [] : currentChildren}
+              parentLabel={isSearchActive ? null : parentLabel}
               activeColor={activeRootColor}
               onRootChange={handleRootChange}
               onChildSelect={handleChildSelect}
               onBack={handleBack}
             />
 
-            <div className="mt-10" />
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <SearchSummary />
+              <SearchBar />
+            </div>
+
+            <div className="mt-6" />
 
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -209,16 +275,19 @@ const Index = () => {
               </div>
             ) : (
               <div className="animate-fade-in">
-                {filteredArticles.length > 0 ? (
-                  <ArticleSection
-                    id={activeRootId}
-                    heading=""
-                    articles={filteredArticles}
-                    parentCategory={activeRootLabel}
-                    parentCategoryColor={activeRootColor}
-                    getParentCategory={activeRootId === "toutes" ? getArticleParentCategory : undefined}
-                    getParentCategoryColor={activeRootId === "toutes" ? getArticleParentCategoryColor : undefined}
-                  />
+                {visibleArticles.length > 0 ? (
+                  <>
+                    <ArticleSection
+                      id={activeRootId}
+                      heading=""
+                      articles={visibleArticles}
+                      parentCategory={activeRootLabel}
+                      parentCategoryColor={activeRootColor}
+                      getParentCategory={activeRootId === "toutes" ? getArticleParentCategory : undefined}
+                      getParentCategoryColor={activeRootId === "toutes" ? getArticleParentCategoryColor : undefined}
+                    />
+                    <LoadMoreButton />
+                  </>
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
                     Aucun article dans cette catégorie pour le moment.
@@ -232,7 +301,8 @@ const Index = () => {
         {/* Mobile layout */}
         {isMobile && (
           <div className="space-y-4">
-            <h2 className="sr-only">Articles</h2>
+            <SearchBar />
+            <SearchSummary />
 
             {isLoading ? (
               <div className="space-y-4">
@@ -242,25 +312,23 @@ const Index = () => {
               </div>
             ) : (
               <div className="space-y-4 animate-fade-in">
-                {filteredArticles.length > 0 ? (
-                  filteredArticles.map((article, i) => (
-                    <MobileArticleCard
-                      key={`${article.tag}-${i}`}
-                      {...article}
-                      isHero={i === 0}
-                      parentCategory={getArticleParentCategory(article.tag)}
-                      parentCategoryColor={getArticleParentCategoryColor(article.tag)}
-                    />
-                  ))
+                {visibleArticles.length > 0 ? (
+                  <>
+                    {visibleArticles.map((article, i) => (
+                      <MobileArticleCard
+                        key={`${article.tag}-${i}`}
+                        {...article}
+                        isHero={i === 0}
+                        parentCategory={getArticleParentCategory(article.tag)}
+                        parentCategoryColor={getArticleParentCategoryColor(article.tag)}
+                      />
+                    ))}
+                    <LoadMoreButton />
+                  </>
                 ) : (
                   <p className="text-muted-foreground text-center py-12">
                     Aucun article dans cette catégorie pour le moment.
                   </p>
-                )}
-                {filteredArticles.length > 0 && (
-                  <button className="w-full py-3 text-sm font-medium text-accent hover:underline transition-colors">
-                    Voir plus d'articles
-                  </button>
                 )}
               </div>
             )}
