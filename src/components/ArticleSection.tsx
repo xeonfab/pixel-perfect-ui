@@ -31,9 +31,6 @@ const ArticleSection = ({ id, heading, articles, parentCategory, getParentCatego
           />
         ))}
       </div>
-      <button className="mt-6 text-sm font-medium text-accent hover:underline transition-colors">
-        Voir plus d'articles
-      </button>
     </section>
   );
 };

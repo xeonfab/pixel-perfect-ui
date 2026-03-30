@@ -12,7 +12,7 @@ export interface CategoryNode {
 export const categoryTree: CategoryNode[] = [
   {
     id: "toutes",
-    label: "Toutes",
+    label: "Tout",
     icon: createElement(LayoutGrid, { className: "h-4 w-4" }),
     color: "bg-mnh-navy",
   },
@@ -22,12 +22,12 @@ export const categoryTree: CategoryNode[] = [
     icon: createElement(Apple, { className: "h-4 w-4" }),
     color: "bg-mnh-teal",
     children: [
-      { id: "ali-toutes", label: "Toutes" },
+      { id: "ali-toutes", label: "Tout" },
       {
         id: "ali-recettes",
         label: "Recettes",
         children: [
-          { id: "ali-rec-toutes", label: "Toutes" },
+          { id: "ali-rec-toutes", label: "Tout" },
           { id: "ali-rec-legeres", label: "Recettes légères" },
           { id: "ali-rec-equilibrees", label: "Repas équilibrés" },
           { id: "ali-rec-desserts", label: "Desserts sains" },
@@ -37,12 +37,12 @@ export const categoryTree: CategoryNode[] = [
         id: "ali-maigrir",
         label: "Comment maigrir",
         children: [
-          { id: "ali-mai-toutes", label: "Toutes" },
+          { id: "ali-mai-toutes", label: "Tout" },
           {
             id: "ali-mai-regimes",
             label: "Régimes",
             children: [
-              { id: "ali-mai-reg-toutes", label: "Toutes" },
+              { id: "ali-mai-reg-toutes", label: "Tout" },
               { id: "ali-mai-reg-cetogene", label: "Régime cétogène" },
               { id: "ali-mai-reg-mediterraneen", label: "Régime méditerranéen" },
               { id: "ali-mai-reg-jeune", label: "Jeûne intermittent" },
@@ -61,12 +61,12 @@ export const categoryTree: CategoryNode[] = [
     icon: createElement(Moon, { className: "h-4 w-4" }),
     color: "bg-mnh-blue",
     children: [
-      { id: "som-toutes", label: "Toutes" },
+      { id: "som-toutes", label: "Tout" },
       {
         id: "som-troubles",
         label: "Troubles du sommeil",
         children: [
-          { id: "som-tro-toutes", label: "Toutes" },
+          { id: "som-tro-toutes", label: "Tout" },
           { id: "som-tro-apnee", label: "Apnée du sommeil" },
           { id: "som-tro-somnambulisme", label: "Somnambulisme" },
           { id: "som-tro-narcolepsie", label: "Narcolepsie" },
@@ -82,12 +82,12 @@ export const categoryTree: CategoryNode[] = [
     icon: createElement(SmilePlus, { className: "h-4 w-4" }),
     color: "bg-mnh-orange",
     children: [
-      { id: "str-toutes", label: "Toutes" },
+      { id: "str-toutes", label: "Tout" },
       {
         id: "str-gerer",
         label: "Gérer son stress",
         children: [
-          { id: "str-ger-toutes", label: "Toutes" },
+          { id: "str-ger-toutes", label: "Tout" },
           { id: "str-ger-meditation", label: "Méditation" },
           { id: "str-ger-respiration", label: "Respiration" },
           { id: "str-ger-sport", label: "Sport anti-stress" },

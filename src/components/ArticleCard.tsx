@@ -22,9 +22,6 @@ const ArticleCard = ({ image, category, tag, title, parentCategory, parentCatego
       </div>
       <div className="p-5">
         <div className="flex flex-wrap gap-2 items-center mb-3">
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-muted-foreground">
-            {category}
-          </span>
           {parentCategory && (
             <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium text-primary-foreground ${parentCategoryColor || 'bg-mnh-teal'}`}>
               {parentCategory}
@@ -32,6 +29,9 @@ const ArticleCard = ({ image, category, tag, title, parentCategory, parentCatego
           )}
           <span className="px-2.5 py-0.5 rounded-full text-xs font-medium border border-border text-accent">
             {tag}
+          </span>
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-muted-foreground">
+            {category}
           </span>
         </div>
         <h3 className="text-sm font-bold text-foreground leading-snug group-hover:text-accent transition-colors">
